@@ -1,48 +1,47 @@
 ## PhyloguidesR
 
+The PhyloguidesR package is a package built to help researchers build
+the most accurate trees from short-read microbial sequencing data to
+enable subsequent phylogenetic microbial community analyses
+(e.g. unifrac).
+
 The 16S rRNA gene has been key to sequence-based phylogenetic microbial
 community analyses for over 30 years. Since the full length 16S gene
 (~1500 base pairs) is longer than what short-read sequencing
 technologies can typically capture, researchers must target a portion of
 the gene, or variable region, typically ~250 base pairs in length.
 
-Prior work has shown that the accuracy of phylogenetic trees built from
-microbial short read data are more accurate if they are built in context
-of full length guide sequences, which allow for a scaffold to improve
-phylogenetic context of microbial short read data while building trees.
-Later, after the tree is built, the researcher can drop the full length
-guides, leaving a phylogenetic tree constructed from short read data
-alone.
+Prior work has shown that the accuracy of phylogenetic trees are
+improved when they are first aligned with full length guide sequences
+(see Figure right) rather than using the short reads alone (see Figure
+left).
 
 <img src="images/GuideUsePicture.png" alt="Descriptive alt text" width="400"/>
 
+This makes sense given what we know about the full length 16S gene. It
+is likely that the full lengh sequences provide additional phylogenetic
+context to build more accurate trees as well as serve as a scaffolding
+for mapping of short reads.
+
 This publication is currently in the review processes, and I will link
-to it when it becomes available. For the meantime, here is the graphical
-abstract.
+to it when it becomes available.
 
-    cat('<embed src="../../manuscript/manuscript_figures/Experimental Overview.png" type="application/png" width="100%" height="600px"/>')
+For the purposes of this tutorial, we will show how to perform the basic
+workflow listed on the right side of the figure above to make the most
+accurate phylgoenetic trees using guide sequences for subsequent use of
+phylogenetic microbial community analyses (e.g. Unifrac).
 
-    ## <embed src="../../manuscript/manuscript_figures/Experimental Overview.png" type="application/png" width="100%" height="600px"/>
+We assume that the user has a phyloseq object and that they are wanting
+to build a phylogenetic tree from the ASVs.
 
-The prupose of the phyloguidesR package and this tutorial is to provide
-you with some helper functions to build trees with full length guide
-sequences.
+## Installing PhyloguidesR
 
-    summary(cars)
+\#TODO: Add instructions for installing.
 
-    ##      speed           dist       
-    ##  Min.   : 4.0   Min.   :  2.00  
-    ##  1st Qu.:12.0   1st Qu.: 26.00  
-    ##  Median :15.0   Median : 36.00  
-    ##  Mean   :15.4   Mean   : 42.98  
-    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
-    ##  Max.   :25.0   Max.   :120.00
+## Step 1: Combine your ASVs from a phyloseq with full length guides
 
-## Including Plots
+## Step 2: Align and filter your ASVs + guides
 
-You can also embed plots, for example:
+## Setp 3: Make a phylogenetic tree
 
-![](README_files/figure-markdown_strict/pressure-1.png)
-
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
+## Step 4: Drop guide sequences
