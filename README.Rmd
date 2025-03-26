@@ -10,14 +10,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## PhyloguidesR  
-The PhyloguidesR package is a package built to help researchers build the most accurate trees from short-read microbial sequencing data to enable subsequent phylogenetic microbial community analyses (e.g. unifrac).
+The PhyloguidesR package is a package built to help researchers build the most accurate trees from short-read microbial sequencing data to enable subsequent phylogenetic microbial community analyses (e.g. unifrac or Cladal Taxonomic Unit analyses).
 
 The 16S rRNA gene has been key to sequence-based phylogenetic microbial community analyses for over 30 years. Since the full length 16S gene (~1500 base pairs) is longer than what short-read sequencing technologies can typically capture, researchers must target a portion of the gene, or variable region, typically ~250 base pairs in length. 
 
 Prior work has shown that the accuracy of phylogenetic trees are improved when they are first aligned with full length guide sequences (see Figure right) rather than using the short reads alone (see Figure left). 
 
 <div style="text-align: center;">
-  <img src="images/GuideUsePicture.png" alt="Descriptive alt text" width="600"/>
+  <img src="inst/images/GuideUsePicture.png" alt="Descriptive alt text" width="600"/>
 </div>
 
 This makes sense given what we know about the full length 16S gene. It is likely that the full lengh sequences provide additional phylogenetic context to build more accurate trees as well as serve as a scaffolding for mapping of short reads. 
@@ -75,7 +75,7 @@ We maintain the phyloguidesR-compatible [Seed Silva Reference Files Release 138.
 </ul>
 </div>
 
-Last, set the directory path (DIR.GUIDES) to where you stored the guide fasta file and alignment file, as well the path to where you want output files to be written (DIR.OUT)
+Last, set the directory path (DIR.GUIDES) to where you stored your full length guides (`guides_silva_138_2_seed.fasta`) and template alignment file (`guides_silva_138_2_seed.align`), as well the path to where you want output files to be written (DIR.OUT).
 
 ```{r, eval = FALSE, echo = TRUE}
 # Set to a directory where you want to look at output. 
@@ -138,7 +138,7 @@ Notice we should see full length guide sequences at the tail of our combined fil
 ## Step 2: Align your ASVs + guides 
 In order to build a phylogenetic tree, you need to build a high quality Multiple Sequence Alignment file. To do so, we will use [mothur's implementation of NAST algorithm](https://mothur.org/wiki/align.seqs/). Note that phyloguidesR provides a wrapper for the `align.seqs` function for convience purposes, but there is no reason that you couldn't just run that function straight from the command line as well. The NAST algoirthm works by aligning a candidate sequence to a template alignment. The high quality alignment provided above was derived from a [recreation of the SILVA SEED database](https://mothur.org/wiki/alignment_database/) and subsequently formatted for use with the phyloguidesR package. 
 
-Lets go ahead and run the mothur align.seqs command with the phyloGuides wrapper. As you can see, we pass the candidate file that we want to align - the fasta file containing our ASVs with full length reference sequences. We align that to a gold standard template alignment file. The output directory says where to store the alignment file, and last, the processors says how many cores one should use. 
+Lets go ahead and run the mothur align.seqs command with the phyloguidesR wrapper. As you can see, we pass the candidate file that we want to align - the fasta file containing our ASVs with full length reference sequences. We align that to a gold standard template alignment file. The output directory says where to store the alignment file, and last, the processors says how many cores one should use. 
 
 ```{r, eval = FALSE, echo = TRUE}
 # Align guides and sequences
@@ -182,7 +182,7 @@ cat(logfile, sep = "\n")
 ```
 
 ## Step 3: Screen your sequences to remove those with low qualtiy information.
-An alignment may contain a column with no information in it (all values are gaps). We will filter this alignment file to remove those next (and therefore make the subsequent steps more efficient). 
+Next we will remove any sequences from the alignment which don't have at least a minimum number of bases. Such sequences are likely not going to provide enough information to build high quality trees. This will be done using mothur's `screen.seqs` command. For convience purposes, we provided a wrapper for this function `screen_seqs_mothur` but there is no reason you couldn't just run this in command line yourself. 
 
 ```{r, eval = FALSE, echo = TRUE}
 # Screen for sequences which are poorly aligned (e.g. have less than 100 characters of information)
@@ -190,7 +190,7 @@ guides_and_seqs_align_screened = screen_seqs_mothur(align_path = guides_and_seqs
 print(basename(guides_and_seqs_align_screened))
 ```
 
-```{r, eval = TRUE, echo = TRUE}
+```{r, eval = TRUE, echo = FALSE}
 # Load the premade alignment file
 guides_and_seqs_align_screened = sub(guides_and_seqs_align, pattern = ".align$", replacement = ".good.align")
 print(basename(guides_and_seqs_align_screened))
@@ -220,7 +220,8 @@ cat(first_lines, sep = "\n")
 </div>
 
 ## Step 4: Filter alignment for gaps. 
-Last, there are some columns which likely just contain gaps (- or .)  which means those columns essentially hold no information about the alignment You should filter these out.
+Last, there are some columns which likely just contain gaps (- or .)  which means those columns essentially hold no information about the alignment. You should filter these out. We provide a wrapper function for mothur's `filter.seqs` command, but there is no reason you couldn't run this on command line yourself. 
+
 ```{r, eval = FALSE, echo = TRUE}
 # Filter alignment for gaps
 guides_and_seqs_align_screened_filtered = filter_seqs_mothur(fasta_path = guides_and_seqs_align_screened)
@@ -285,7 +286,7 @@ print(basename(tree_path))
 </div>
 
 ## Step 6: Midpoint Root 
-Well, now that we've made a phylogenetic tree, we are ready to import the tree back into R. If subsequent analyses rely on a rooted tree, a common method when we don't quite know the best root sequence is to perform [midpoint rooting](https://www.ebi.ac.uk/training/online/courses/introduction-to-phylogenetics/what-is-a-phylogeny/aspects-of-phylogenies/root/). In the case of midpoint rooting we simply choose the root as the midpoint between the two longest branches. An assumption of this is that all of our sequences are evolving at the same rate, which is likely more appropriate for the 16S gene as compared to genes undering fast varied rates of evolution.
+Well, now that we've made a phylogenetic tree, we are ready to import the tree back into R. If subsequent analyses rely on a rooted tree, a common method chosen when the root isn't known a-priori is  [midpoint rooting](https://www.ebi.ac.uk/training/online/courses/introduction-to-phylogenetics/what-is-a-phylogeny/aspects-of-phylogenies/root/). In the case of midpoint rooting we simply choose the root as the midpoint between the two longest branches. An assumption of this is that all of our sequences are evolving at the same rate, which is likely more appropriate for the 16S gene as compared to genes undering fast varied rates of evolution.
 
 ```{r, eval = TRUE, echo = TRUE}
 # Build tree
@@ -323,8 +324,9 @@ ps_renamed = rename_taxa_with_short_names(physeq = ex_ps, fasta_df = key_to_seq_
 ps_renamed
 ```
 
-(Optional) If you wanted to test that your new human readable names match exactly to the old ASVs, you could do something like this. 
-```{r, eval = FALSE, echo = TRUE}
+
+```{r, eval = FALSE, echo = FALSE}
+#(Optional) If you wanted to test that your new human readable names match exactly to the old ASVs, you could do something like this. 
 # Code for checking rename_taxa_with_short_names 
 otu_old = as.data.frame(phyloseqCompanion::otu.data.table(ex_ps))
 otu_old
