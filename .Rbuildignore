@@ -1,2 +1,6 @@
 ^phyloguidesR\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^data-raw$
+^README\.Rmd$
+^README\.html$
