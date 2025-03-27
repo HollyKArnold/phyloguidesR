@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## PhyloguidesR  
-The PhyloguidesR package is a package built to help researchers build the most accurate trees from short-read microbial sequencing data to enable subsequent phylogenetic microbial community analyses (e.g. unifrac or Cladal Taxonomic Unit analyses).
+PhyloguidesR is an R package built to help researchers build the most accurate trees from short-read microbial sequencing data to enable subsequent phylogenetic microbial community analyses (e.g. unifrac or Cladal Taxonomic Unit analyses).
 
 The 16S rRNA gene has been key to sequence-based phylogenetic microbial community analyses for over 30 years. Since the full length 16S gene (~1500 base pairs) is longer than what short-read sequencing technologies can typically capture, researchers must target a portion of the gene, or variable region, typically ~250 base pairs in length. 
 

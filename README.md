@@ -1,9 +1,9 @@
 ## PhyloguidesR
 
-The PhyloguidesR package is a package built to help researchers build
-the most accurate trees from short-read microbial sequencing data to
-enable subsequent phylogenetic microbial community analyses
-(e.g. unifrac or Cladal Taxonomic Unit analyses).
+PhyloguidesR is an R package built to help researchers build the most
+accurate trees from short-read microbial sequencing data to enable
+subsequent phylogenetic microbial community analyses (e.g. unifrac or
+Cladal Taxonomic Unit analyses).
 
 The 16S rRNA gene has been key to sequence-based phylogenetic microbial
 community analyses for over 30 years. Since the full length 16S gene
@@ -515,7 +515,7 @@ more about UniFrac
     ## 
     ## vegan::adonis2(formula = unifrac_weighted ~ When, data = as.data.frame(as(phyloseq::sample_data(ps_with_tree), "data.frame")))
     ##          Df SumOfSqs      R2      F Pr(>F)   
-    ## When      1 0.034783 0.35758 9.4626  0.004 **
+    ## When      1 0.034783 0.35758 9.4626  0.003 **
     ## Residual 17 0.062490 0.64242                 
     ## Total    18 0.097273 1.00000                 
     ## ---
