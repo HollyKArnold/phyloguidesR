@@ -1,7 +1,6 @@
-#' Print out a list
+#' Prints out a list nicely.
 #'
 #' @param list A phyloseq object
-
 #' @return Prints a list
 #' @export
 #'

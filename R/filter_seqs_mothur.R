@@ -1,9 +1,9 @@
-#' Filter an alignment file to remove columns that are all gaps in the alignment)
+#' Convience wrapper function for mothur's filter.seqs() command. This function filters the
+#' alignment file to remove any columns that are only gap (-) or dot (.)
+#' characters. Note that the filter function produces a postfix of .filter.fasta from a
+#' .fasta file input.
 #'
-#' This function filters the alignment file to remove any columns that are only gap (-) or dot (.)
-#' characters. Note that the filter function produces a .filter.fasta from a .fasta file.
-#'
-#' @param fasta_path A multi sequence alignment file to filter
+#' @param fasta_path A multi sequence alignment file on which to perform filtration.
 #'
 #' @return Returns the path to the filtered alignment file.
 #' @export

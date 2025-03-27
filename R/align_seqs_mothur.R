@@ -1,36 +1,23 @@
-#' Wrapper for mothur Align Seqs function
-#'
-#' R script to use the mothur align.seqs command. More information can be
+#' Wrapper for mothur's align.seqs() function.
+#' Convience R script to use the mothur align.seqs command. More information can be
 #' found at the mothur website: https://mothur.org/wiki/align.seqs/.
 #' Defaults are set to those defaults provided by the documentation at
 #' mothur.org
 #'
-#' @param candidate The path to the fasta file that you are wanting to align.
-#' @param output.directory Output directory
-#' @param template The path to the template file you would like to align to.
-#' Defualt is to align to the silva Tree alignment file.
-#' @param search Set search to "kmer" (Default) or "suffix" for kmer or suffix
-#' tree searching. The kmer searching is recommended on mothur.org with cited
-#' reasons of being faster and best.
-#' @param ksize The size of the kmer. mothur.org recommends the kmer size that
-#' is empirically determined by the user to be the fastest for alignment.
-#' @param align The alignment method used. Options include "needleman" (Default)
-#' and "gotoh" algorithm. The needleman prioritizes the same amount for
-#' opening and extending a gap. The gotoh algorithm charges differently for
-#' opening (larger penalty) and extending a gap. mothur.org suggests
-#' the needleman algorithm as it decreases the amount of time needed for the
-#' alignment without decreasing the time required for alignment.
-#' @param match Default reward for a match (+1). mothur.org has set these
-#' defaults to be best at producing 16S rRNA gene sequence alignments.
-#' @param mismatch Default penalty for a mismatch (-1).
-#' @param gapopen The default penalty for opening a gap (-2).
-#' @param gapextend The default penalty for extending a gap (-1).
-#' @param flip Should the sequence be flipped to align to see if the reverse
-#' complement aligns better? Default is TRUE.
-#' @param threshold The  threshold (default 0.5) that is used to determine if a
-#' sequence should be flipped for a better alignment.
-#' @param processors Default 1. The number of cores to use to do the alignment.
-#' @return A path to the mothur alignment file
+#' @param candidate Path to the fasta file that you are wanting to align (guides + ASV concatenated file)
+#' @param output.directory Output directory for which to write output files.
+#' @param template The path to the template alignment file for which NAST alignment algorithm will align to.
+#' @param search Set search to "kmer" (Default) or "suffix" for kmer or suffix tree searching. The kmer searching is recommended on mothur.org with cited reasons of being faster and best.
+#' @param ksize The size of the kmer. mothur.org recommends the kmer size that is empirically determined by the user to be the fastest for alignment.
+#' @param align The alignment method used. Options include "needleman" (Default) and "gotoh" algorithm. The needleman prioritizes the same amount for opening and extending a gap. The gotoh algorithm charges differently for opening (larger penalty) and extending a gap. mothur.org suggests the needleman algorithm as default.
+#' @param match Reward for a match (Default +1). mothur.org has set these defaults to be best at producing 16S rRNA gene sequence alignments.
+#' @param mismatch The penalty for a mismatch (Default -1).
+#' @param gapopen The penalty for opening a gap (Default is -2).
+#' @param gapextend The  penalty for extending a gap (Default -1).
+#' @param flip Should the sequence be flipped to align to see if the reverse complement aligns better? (Default is TRUE).
+#' @param threshold The threshold (Default 0.5) that is used to determine if a sequence should be flipped for a better alignment.
+#' @param processors The number of cores to use to do the alignment. Default 1.
+#' @return A path to the alignment file produced by mothurs align.seqs function.
 #' @export
 align_seqs_mothur = function(candidate,
                              output.directory,
@@ -44,7 +31,7 @@ align_seqs_mothur = function(candidate,
                              gapextend = -1,
                              flip = TRUE,
                              threshold = 0.50,
-                             processors = 50){
+                             processors = 1){
 
 
 

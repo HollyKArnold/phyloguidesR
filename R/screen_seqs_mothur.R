@@ -1,12 +1,10 @@
+#' A convience wrapper function for mothur's screen.seqs command.
+#' Removes sequences which are below the min.seq.length, which likely have poor quality alignments.
 #'
-#' Removes sequences which are blow the min.seq.length, which likely have poor quality alignments.
-#'
-#' This function screens sequences that are less than the minimum sequence
-#' length using mothur's screen.seqs() command. Note the screen.seqs() produces a ".good.fasta" file.
+#' This function screens sequences that are less than the minimum sequence length using mothur's screen.seqs() command. Note the screen.seqs() produces a ".good.fasta" file.
 #'
 #' @param align_path A path to the alignemnt file to screen.
-#' @param min_seq_length The minimum sequence length to pass to screen.seqs().
-#' Default is 100 basepairs.
+#' @param min_seq_length The minimum sequence length to pass to screen.seqs(). Default is 100 basepairs.
 #'
 #' @return Returns the path to the prepared alignment file.
 #' @export

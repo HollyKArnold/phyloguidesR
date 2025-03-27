@@ -1,11 +1,10 @@
-#' Make a fasttree from an alignment file
+#' A convience wrapper function to make a fasttree from an alignment file.
 #'
-#' @param path_alignment Path to the alignment file
-#' @param fasttree_flags Flags to pass to fasttree
-#' @param output_file_name The output file name
+#' @param path_alignment Path to the alignment file.
+#' @param fasttree_flags Flags to pass to fasttree.
+#' @param output_file_name The output file name (should end with .tre)
 #' @param output_dir The output directory.
-#' @return Returns a path to fasttree output if fasttree is successful,
-#' otherwise returns NULL
+#' @return Returns a path to fasttree output if fasttree is successful, otherwise returns NULL.
 #' @export
 make_fasttree = function(path_alignment,
                          fasttree_flags = "-nt -gtr -gamma",

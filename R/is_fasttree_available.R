@@ -1,4 +1,4 @@
-#' Check if fasttree is available on the system
+#' Check if fasttree is available on the system.
 #'
 #' @return Returns the number of characters of path for FastTree
 #' @export

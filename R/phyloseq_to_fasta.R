@@ -1,9 +1,9 @@
 #' Write a fasta file from a sequence key
 #'
 #' @param phyloseq A phyloseq object. Note that the otu/asv names *must* be the sequences.
-#' @param dir_out The output directory to where to write the fasta
-#' @param filename_out The output filename
-#' @return The path to the written fasta file
+#' @param dir_out The output directory to where to write the output fasta file.
+#' @param filename_out The output filename for the fasta file (end with.fasta)
+#' @return The path to the written fasta file.
 #' @export
 #'
 phyloseq_to_fasta = function(phyloseq, dir_out = ".", filename_out = "asvs.fasta"){
@@ -16,8 +16,6 @@ phyloseq_to_fasta = function(phyloseq, dir_out = ".", filename_out = "asvs.fasta
       call. = FALSE
     )
   }
-  # code that includes calls such as aaapkg::aaa_fun()
-
 
   # Do some checks to see if the output directory exists
   if(!dir.exists(dir_out)){

@@ -3,7 +3,7 @@
 The PhyloguidesR package is a package built to help researchers build
 the most accurate trees from short-read microbial sequencing data to
 enable subsequent phylogenetic microbial community analyses
-(e.g. unifrac).
+(e.g. unifrac or Cladal Taxonomic Unit analyses).
 
 The 16S rRNA gene has been key to sequence-based phylogenetic microbial
 community analyses for over 30 years. Since the full length 16S gene
@@ -16,7 +16,7 @@ improved when they are first aligned with full length guide sequences
 (see Figure right) rather than using the short reads alone (see Figure
 left).
 
-<img src="images/GuideUsePicture.png" alt="Descriptive alt text" width="600"/>
+<img src="inst/images/GuideUsePicture.png" alt="Descriptive alt text" width="600"/>
 
 This makes sense given what we know about the full length 16S gene. It
 is likely that the full lengh sequences provide additional phylogenetic
@@ -115,9 +115,10 @@ formatted as multi-aligment FASTA.
 </li>
 </ul>
 
-Last, set the directory path (DIR.GUIDES) to where you stored the guide
-fasta file and alignment file, as well the path to where you want output
-files to be written (DIR.OUT)
+Last, set the directory path (DIR.GUIDES) to where you stored your full
+length guides (`guides_silva_138_2_seed.fasta`) and template alignment
+file (`guides_silva_138_2_seed.align`), as well the path to where you
+want output files to be written (DIR.OUT).
 
     # Set to a directory where you want to look at output. 
     DIR.OUT = "/path/to/desired/output/folder/"
@@ -173,12 +174,12 @@ alignment. The high quality alignment provided above was derived from a
 database](https://mothur.org/wiki/alignment_database/) and subsequently
 formatted for use with the phyloguidesR package.
 
-Lets go ahead and run the mothur align.seqs command with the phyloGuides
-wrapper. As you can see, we pass the candidate file that we want to
-align - the fasta file containing our ASVs with full length reference
-sequences. We align that to a gold standard template alignment file. The
-output directory says where to store the alignment file, and last, the
-processors says how many cores one should use.
+Lets go ahead and run the mothur align.seqs command with the
+phyloguidesR wrapper. As you can see, we pass the candidate file that we
+want to align - the fasta file containing our ASVs with full length
+reference sequences. We align that to a gold standard template alignment
+file. The output directory says where to store the alignment file, and
+last, the processors says how many cores one should use.
 
     # Align guides and sequences
     guides_and_seqs_align = align_seqs_mothur(candidate = guides_and_sequences,
@@ -230,16 +231,15 @@ Ok, now lets take a look at outputs. You should see that there are gaps
 
 ## Step 3: Screen your sequences to remove those with low qualtiy information.
 
-An alignment may contain a column with no information in it (all values
-are gaps). We will filter this alignment file to remove those next (and
-therefore make the subsequent steps more efficient).
+Next we will remove any sequences from the alignment which don’t have at
+least a minimum number of bases. Such sequences are likely not going to
+provide enough information to build high quality trees. This will be
+done using mothur’s `screen.seqs` command. For convience purposes, we
+provided a wrapper for this function `screen_seqs_mothur` but there is
+no reason you couldn’t just run this in command line yourself.
 
     # Screen for sequences which are poorly aligned (e.g. have less than 100 characters of information)
     guides_and_seqs_align_screened = screen_seqs_mothur(align_path = guides_and_seqs_align, min_seq_length = 100)
-    print(basename(guides_and_seqs_align_screened))
-
-    # Load the premade alignment file
-    guides_and_seqs_align_screened = sub(guides_and_seqs_align, pattern = ".align$", replacement = ".good.align")
     print(basename(guides_and_seqs_align_screened))
 
     ## [1] "seqs_and_guides.good.align"
@@ -273,7 +273,9 @@ Additional documentaiton is located
 
 Last, there are some columns which likely just contain gaps (- or .)
 which means those columns essentially hold no information about the
-alignment You should filter these out.
+alignment. You should filter these out. We provide a wrapper function
+for mothur’s `filter.seqs` command, but there is no reason you couldn’t
+run this on command line yourself.
 
     # Filter alignment for gaps
     guides_and_seqs_align_screened_filtered = filter_seqs_mothur(fasta_path = guides_and_seqs_align_screened)
@@ -344,8 +346,7 @@ here [here](https://morgannprice.github.io/fasttree/#Install)
 
 Well, now that we’ve made a phylogenetic tree, we are ready to import
 the tree back into R. If subsequent analyses rely on a rooted tree, a
-common method when we don’t quite know the best root sequence is to
-perform [midpoint
+common method chosen when the root isn’t known a-priori is [midpoint
 rooting](https://www.ebi.ac.uk/training/online/courses/introduction-to-phylogenetics/what-is-a-phylogeny/aspects-of-phylogenies/root/).
 In the case of midpoint rooting we simply choose the root as the
 midpoint between the two longest branches. An assumption of this is that
@@ -444,30 +445,6 @@ fasta file we wrote out.
     ## sample_data() Sample Data:       [ 19 samples by 4 sample variables ]
     ## tax_table()   Taxonomy Table:    [ 233 taxa by 6 taxonomic ranks ]
 
-(Optional) If you wanted to test that your new human readable names
-match exactly to the old ASVs, you could do something like this.
-
-    # Code for checking rename_taxa_with_short_names 
-    otu_old = as.data.frame(phyloseqCompanion::otu.data.table(ex_ps))
-    otu_old
-    otu_new = as.data.frame(phyloseqCompanion::otu.data.table(ps_renamed))
-    dim(otu_new)
-    tax_old = as.data.frame(phyloseqCompanion::taxa.data.table(ex_ps))
-    rownames(tax_old) = tax_old$Taxon
-    tax_new = as.data.frame(phyloseqCompanion::taxa.data.table(ps_renamed))
-    rownames(tax_new) = tax_new$Taxon
-
-    all_true_otu = 1
-    all_true_tax = 1
-    for(i in 1:nrow(key_to_seq_map)){
-      cur_id = key_to_seq_map[i,"seq.name"]
-      cur_seq = key_to_seq_map[i, "seq.text"]
-      if(sum(otu_old[, cur_seq] == otu_new[, cur_id]) == nrow(otu_new)){}else{all_true_otu = 0}
-      if(! identical(as.vector(tax_new[cur_id,c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")]), as.vector(tax_old[cur_seq,c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")]))){all_true_tax =0}
-    }
-    if(all_true_otu == 0){print("FAIL: function rename_taxa_with_short_names not working as expected")}else{print("PASS")}
-    if(all_true_tax == 0){print("FAIL: function rename_taxa_with_short_names not working as expected")}else{print("PASS")}
-
 Last, remember how there was one ASV which was poorly aligned? That ASV
 isn’t in our tree but its in our phyloseq object. We will need to remove
 that.
@@ -518,13 +495,12 @@ more about UniFrac
     ## Residual 17  0.72980 0.60893                  
     ## Total    18  1.19849 1.00000                  
     ## ---
-    ## Signif. codes:  
-    ## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     ordination_unifrac <- phyloseq::ordinate(ps_with_tree, method = "PCoA", distance = "unifrac")
     phyloseq::plot_ordination(ps_with_tree, ordination_unifrac, color = "When")
 
-![](README_files/figure-markdown_strict/unnamed-chunk-75-1.png)
+![](README_files/figure-markdown_strict/unnamed-chunk-28-1.png)
 
     # Weighted UniFrac
     unifrac_weighted = phyloseq::UniFrac(ps_with_tree, weighted = TRUE)
@@ -539,14 +515,13 @@ more about UniFrac
     ## 
     ## vegan::adonis2(formula = unifrac_weighted ~ When, data = as.data.frame(as(phyloseq::sample_data(ps_with_tree), "data.frame")))
     ##          Df SumOfSqs      R2      F Pr(>F)   
-    ## When      1 0.034783 0.35758 9.4626  0.007 **
+    ## When      1 0.034783 0.35758 9.4626  0.004 **
     ## Residual 17 0.062490 0.64242                 
     ## Total    18 0.097273 1.00000                 
     ## ---
-    ## Signif. codes:  
-    ## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     ordination_unifrac <- phyloseq::ordinate(ps_with_tree, method = "PCoA", distance = "wunifrac")
     phyloseq::plot_ordination(ps_with_tree, ordination_unifrac, color = "When")
 
-![](README_files/figure-markdown_strict/unnamed-chunk-75-2.png)
+![](README_files/figure-markdown_strict/unnamed-chunk-28-2.png)

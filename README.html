@@ -814,10 +814,10 @@ print(adonis_result_weighted)</code></pre>
 ## Number of permutations: 999
 ## 
 ## vegan::adonis2(formula = unifrac_weighted ~ When, data = as.data.frame(as(phyloseq::sample_data(ps_with_tree), &quot;data.frame&quot;)))
-##          Df SumOfSqs      R2      F Pr(&gt;F)    
-## When      1 0.034783 0.35758 9.4626  0.001 ***
-## Residual 17 0.062490 0.64242                  
-## Total    18 0.097273 1.00000                  
+##          Df SumOfSqs      R2      F Pr(&gt;F)   
+## When      1 0.034783 0.35758 9.4626  0.003 **
+## Residual 17 0.062490 0.64242                 
+## Total    18 0.097273 1.00000                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>ordination_unifrac &lt;- phyloseq::ordinate(ps_with_tree, method = &quot;PCoA&quot;, distance = &quot;wunifrac&quot;)

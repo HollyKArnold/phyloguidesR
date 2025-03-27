@@ -1,10 +1,10 @@
 Package: phyloguidesR
-Title: What the Package Does (One Line, Title Case)
+Title: Build Accurate Phylogenetic Trees From Short Read 16S rRNA Data Using Full Length 16S Guide Sequences
 Version: 0.0.0.9000
 Authors@R: 
     person("Holly", "Arnold", , "arnoldhk@oregonstate.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6872-2187"))
-Description: PhyloGuidesR provides an R package to make the phy_tree portion of the phyloseq object using full length guide sequences in the process. The 16S rRNA gene has been key to sequence-based phylogenetic microbial community analyses for over 30 years. Since the full length 16S gene (~1500 base pairs) is longer than what short-read sequencing technologies can typically capture, researchers must target a portion of the gene, or variable region, typically ~250 base pairs in length. Prior work has found that full length, phylogenetically diverse 16S guide sequences can serve as a scaffold to improve topological accuracy of phylogenetic trees constructed from any variable region, using an in silico approach. We also considered the unfortunate case where researchers have sequenced different portions of the 16S gene, and show that guide sequences can provide essential context to build accurate tree topologies while integrating data from different variable regions, even in the case of disjoint variable regions. 
+Description: PhyloGuidesR provides an R package to enable most accurate phylogenetic analyses for microbial communities. The 16S rRNA gene has been key to sequence-based phylogenetic microbial community analyses for over 30 years. Since the full length 16S gene (~1500 base pairs) is longer than what short-read sequencing technologies can typically capture, researchers must target a portion of the gene, or variable region, typically ~250 base pairs in length. Prior work has found that full length, phylogenetically diverse 16S guide sequences can serve as a scaffold to improve topological accuracy of phylogenetic trees constructed from any variable region, using an in silico approach. We also considered the unfortunate case where researchers have sequenced different portions of the 16S gene, and show that guide sequences can provide essential context to build accurate tree topologies while integrating data from different variable regions, even in the case of disjoint variable regions. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
