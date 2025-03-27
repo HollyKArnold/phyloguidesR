@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_fasttree.R
 \name{make_fasttree}
 \alias{make_fasttree}
-\title{Make a fasttree from an alignment file}
+\title{A convience wrapper function to make a fasttree from an alignment file.}
 \usage{
 make_fasttree(
   path_alignment,
@@ -12,18 +12,17 @@ make_fasttree(
 )
 }
 \arguments{
-\item{path_alignment}{Path to the alignment file}
+\item{path_alignment}{Path to the alignment file.}
 
-\item{fasttree_flags}{Flags to pass to fasttree}
+\item{fasttree_flags}{Flags to pass to fasttree.}
 
-\item{output_file_name}{The output file name}
+\item{output_file_name}{The output file name (should end with .tre)}
 
 \item{output_dir}{The output directory.}
 }
 \value{
-Returns a path to fasttree output if fasttree is successful,
-otherwise returns NULL
+Returns a path to fasttree output if fasttree is successful, otherwise returns NULL.
 }
 \description{
-Make a fasttree from an alignment file
+A convience wrapper function to make a fasttree from an alignment file.
 }

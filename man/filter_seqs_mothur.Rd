@@ -2,17 +2,22 @@
 % Please edit documentation in R/filter_seqs_mothur.R
 \name{filter_seqs_mothur}
 \alias{filter_seqs_mothur}
-\title{Filter an alignment file to remove columns that are all gaps in the alignment)}
+\title{Convience wrapper function for mothur's filter.seqs() command. This function filters the
+alignment file to remove any columns that are only gap (-) or dot (.)
+characters. Note that the filter function produces a postfix of .filter.fasta from a
+.fasta file input.}
 \usage{
 filter_seqs_mothur(fasta_path)
 }
 \arguments{
-\item{fasta_path}{A multi sequence alignment file to filter}
+\item{fasta_path}{A multi sequence alignment file on which to perform filtration.}
 }
 \value{
 Returns the path to the filtered alignment file.
 }
 \description{
-This function filters the alignment file to remove any columns that are only gap (-) or dot (.)
-characters. Note that the filter function produces a .filter.fasta from a .fasta file.
+Convience wrapper function for mothur's filter.seqs() command. This function filters the
+alignment file to remove any columns that are only gap (-) or dot (.)
+characters. Note that the filter function produces a postfix of .filter.fasta from a
+.fasta file input.
 }

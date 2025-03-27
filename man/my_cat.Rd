@@ -2,7 +2,7 @@
 % Please edit documentation in R/my_cat.R
 \name{my_cat}
 \alias{my_cat}
-\title{Print out a list}
+\title{Prints out a list nicely.}
 \usage{
 my_cat(list)
 }
@@ -13,5 +13,5 @@ my_cat(list)
 Prints a list
 }
 \description{
-Print out a list
+Prints out a list nicely.
 }

@@ -14,21 +14,14 @@ phyloseq_to_sequence_key(
 \arguments{
 \item{phyloseq}{A phyloseq object}
 
-\item{KEY.identifier.append}{Append an identifier to the start of the
-sequence key. This is appropraite when, for example, you are combining
-multiple studies together so that 'seq1' from study 1 will not be
-identical to seq1 in study 2.}
+\item{KEY.identifier.append}{Append an identifier to the start of the sequence key. This is appropraite when, for example, you are combining multiple studies together so that 'seq1' from study 1 will not be identical to seq1 in study 2.}
 
-\item{KEY.identifier.sep}{The character to separate the KEY.identifier.append
-and the sequence KEY id. For example "."}
+\item{KEY.identifier.sep}{The character to separate the KEY.identifier.append and the sequence KEY id. For example "."}
 
-\item{is.human.readable}{Should the phyloseq be toggled to a human readable
-key. DEFAULT is ture.}
+\item{is.human.readable}{Should the phyloseq be toggled to a human readable key. DEFAULT is ture.}
 }
 \value{
-A table with each ASV sequence with a unique human readible
-identifier (seq1, seq2, ..., seqN). Column 1 (KEY) contains the sequence
-id and column 2 contains the ASV sequence.
+A table with each ASV sequence with a unique human readable identifier (seq1, seq2, ..., seqN). Column 1 (KEY) contains the sequence id and column 2 contains the ASV sequence.
 }
 \description{
 Create a sequence key from a phyloseq object

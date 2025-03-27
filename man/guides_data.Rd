@@ -7,7 +7,7 @@
 \format{
 \subsection{\code{guides_data}}{
 
-A phyloseq object generated from the DADA2 Pipeline tutorial data 1.16. This data has an example "bad ASV" sequence added for tutorial puposes.
+A phyloseq object generated from the DADA2 Pipeline tutorial data 1.16.
 \describe{
 \item{country}{USA}
 \item{year}{2025}
@@ -22,7 +22,6 @@ A phyloseq object generated from the DADA2 Pipeline tutorial data 1.16. This dat
 guides_data
 }
 \description{
-The phyloseq data
-Report ...
+Example phyloseq object
 }
 \keyword{datasets}

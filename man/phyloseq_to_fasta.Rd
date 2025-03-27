@@ -9,12 +9,12 @@ phyloseq_to_fasta(phyloseq, dir_out = ".", filename_out = "asvs.fasta")
 \arguments{
 \item{phyloseq}{A phyloseq object. Note that the otu/asv names \emph{must} be the sequences.}
 
-\item{dir_out}{The output directory to where to write the fasta}
+\item{dir_out}{The output directory to where to write the output fasta file.}
 
-\item{filename_out}{The output filename}
+\item{filename_out}{The output filename for the fasta file (end with.fasta)}
 }
 \value{
-The path to the written fasta file
+The path to the written fasta file.
 }
 \description{
 Write a fasta file from a sequence key

@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_guides.R
 \name{add_guides}
 \alias{add_guides}
-\title{Concatenate guides and fasta}
+\title{Concatenate full length guides and short read data.}
 \usage{
 add_guides(
   dir_out = ".",
@@ -12,17 +12,17 @@ add_guides(
 )
 }
 \arguments{
-\item{dir_out}{The output directory where to write the seqs + guides file.}
+\item{dir_out}{The output directory where to write the concatenated ASV + guides file.}
 
-\item{filename_out}{the name of the output file of the seqs + guides file}
+\item{filename_out}{Output filename to write the concatenated ASV + guides file.}
 
-\item{guides_file_path}{The file path to the guide file}
+\item{guides_file_path}{File path to the full length guide file.}
 
-\item{asvs_file_path}{The file path to asv fasta file}
+\item{asvs_file_path}{File path to ASV file (FASTA formatted).}
 }
 \value{
-The path to the written fasta + guides file
+The path to the ouput concatenated ASV + guides file.
 }
 \description{
-Concatenate guides and fasta
+Concatenate full length guides and short read data.
 }

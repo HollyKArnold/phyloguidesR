@@ -2,7 +2,11 @@
 % Please edit documentation in R/align_seqs_mothur.R
 \name{align_seqs_mothur}
 \alias{align_seqs_mothur}
-\title{Wrapper for mothur Align Seqs function}
+\title{Wrapper for mothur's align.seqs() function.
+Convience R script to use the mothur align.seqs command. More information can be
+found at the mothur website: https://mothur.org/wiki/align.seqs/.
+Defaults are set to those defaults provided by the documentation at
+mothur.org}
 \usage{
 align_seqs_mothur(
   candidate,
@@ -17,53 +21,42 @@ align_seqs_mothur(
   gapextend = -1,
   flip = TRUE,
   threshold = 0.5,
-  processors = 50
+  processors = 1
 )
 }
 \arguments{
-\item{candidate}{The path to the fasta file that you are wanting to align.}
+\item{candidate}{Path to the fasta file that you are wanting to align (guides + ASV concatenated file)}
 
-\item{output.directory}{Output directory}
+\item{output.directory}{Output directory for which to write output files.}
 
-\item{template}{The path to the template file you would like to align to.
-Defualt is to align to the silva Tree alignment file.}
+\item{template}{The path to the template alignment file for which NAST alignment algorithm will align to.}
 
-\item{search}{Set search to "kmer" (Default) or "suffix" for kmer or suffix
-tree searching. The kmer searching is recommended on mothur.org with cited
-reasons of being faster and best.}
+\item{search}{Set search to "kmer" (Default) or "suffix" for kmer or suffix tree searching. The kmer searching is recommended on mothur.org with cited reasons of being faster and best.}
 
-\item{ksize}{The size of the kmer. mothur.org recommends the kmer size that
-is empirically determined by the user to be the fastest for alignment.}
+\item{ksize}{The size of the kmer. mothur.org recommends the kmer size that is empirically determined by the user to be the fastest for alignment.}
 
-\item{align}{The alignment method used. Options include "needleman" (Default)
-and "gotoh" algorithm. The needleman prioritizes the same amount for
-opening and extending a gap. The gotoh algorithm charges differently for
-opening (larger penalty) and extending a gap. mothur.org suggests
-the needleman algorithm as it decreases the amount of time needed for the
-alignment without decreasing the time required for alignment.}
+\item{align}{The alignment method used. Options include "needleman" (Default) and "gotoh" algorithm. The needleman prioritizes the same amount for opening and extending a gap. The gotoh algorithm charges differently for opening (larger penalty) and extending a gap. mothur.org suggests the needleman algorithm as default.}
 
-\item{match}{Default reward for a match (+1). mothur.org has set these
-defaults to be best at producing 16S rRNA gene sequence alignments.}
+\item{match}{Reward for a match (Default +1). mothur.org has set these defaults to be best at producing 16S rRNA gene sequence alignments.}
 
-\item{mismatch}{Default penalty for a mismatch (-1).}
+\item{mismatch}{The penalty for a mismatch (Default -1).}
 
-\item{gapopen}{The default penalty for opening a gap (-2).}
+\item{gapopen}{The penalty for opening a gap (Default is -2).}
 
-\item{gapextend}{The default penalty for extending a gap (-1).}
+\item{gapextend}{The  penalty for extending a gap (Default -1).}
 
-\item{flip}{Should the sequence be flipped to align to see if the reverse
-complement aligns better? Default is TRUE.}
+\item{flip}{Should the sequence be flipped to align to see if the reverse complement aligns better? (Default is TRUE).}
 
-\item{threshold}{The  threshold (default 0.5) that is used to determine if a
-sequence should be flipped for a better alignment.}
+\item{threshold}{The threshold (Default 0.5) that is used to determine if a sequence should be flipped for a better alignment.}
 
-\item{processors}{Default 1. The number of cores to use to do the alignment.}
+\item{processors}{The number of cores to use to do the alignment. Default 1.}
 }
 \value{
-A path to the mothur alignment file
+A path to the alignment file produced by mothurs align.seqs function.
 }
 \description{
-R script to use the mothur align.seqs command. More information can be
+Wrapper for mothur's align.seqs() function.
+Convience R script to use the mothur align.seqs command. More information can be
 found at the mothur website: https://mothur.org/wiki/align.seqs/.
 Defaults are set to those defaults provided by the documentation at
 mothur.org

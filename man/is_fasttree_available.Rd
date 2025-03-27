@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_fasttree_available.R
 \name{is_fasttree_available}
 \alias{is_fasttree_available}
-\title{Check if fasttree is available on the system}
+\title{Check if fasttree is available on the system.}
 \usage{
 is_fasttree_available()
 }
@@ -10,5 +10,5 @@ is_fasttree_available()
 Returns the number of characters of path for FastTree
 }
 \description{
-Check if fasttree is available on the system
+Check if fasttree is available on the system.
 }

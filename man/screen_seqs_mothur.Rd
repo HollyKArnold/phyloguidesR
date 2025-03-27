@@ -2,20 +2,19 @@
 % Please edit documentation in R/screen_seqs_mothur.R
 \name{screen_seqs_mothur}
 \alias{screen_seqs_mothur}
-\title{Removes sequences which are blow the min.seq.length, which likely have poor quality alignments.}
+\title{A convience wrapper function for mothur's screen.seqs command.
+Removes sequences which are below the min.seq.length, which likely have poor quality alignments.}
 \usage{
 screen_seqs_mothur(align_path, min_seq_length = 100)
 }
 \arguments{
 \item{align_path}{A path to the alignemnt file to screen.}
 
-\item{min_seq_length}{The minimum sequence length to pass to screen.seqs().
-Default is 100 basepairs.}
+\item{min_seq_length}{The minimum sequence length to pass to screen.seqs(). Default is 100 basepairs.}
 }
 \value{
 Returns the path to the prepared alignment file.
 }
 \description{
-This function screens sequences that are less than the minimum sequence
-length using mothur's screen.seqs() command. Note the screen.seqs() produces a ".good.fasta" file.
+This function screens sequences that are less than the minimum sequence length using mothur's screen.seqs() command. Note the screen.seqs() produces a ".good.fasta" file.
 }
