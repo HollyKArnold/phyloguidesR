@@ -181,7 +181,7 @@ logfile <- system(my_cat(list = c("cat  ", DIR.OUT, "*.logfile")), intern = TRUE
 cat(logfile, sep = "\n")
 ```
 
-## Step 3: Screen your sequences to remove those with low qualtiy information.
+## Step 3: Screen your sequences to remove those with low quality information.
 Next we will remove any sequences from the alignment which don't have at least a minimum number of bases. Such sequences are likely not going to provide enough information to build high quality trees. This will be done using mothur's `screen.seqs` command. For convience purposes, we provided a wrapper for this function `screen_seqs_mothur` but there is no reason you couldn't just run this in command line yourself. 
 
 ```{r, eval = FALSE, echo = TRUE}
